@@ -89,12 +89,20 @@ export default function MarketModule() {
         })
       });
 
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.error || "Gagal menghubungi mesin analisis pasar.");
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        const bodyText = await response.text();
+        console.error("Non-JSON API response content:", bodyText);
+        throw new Error(
+          "Server API (/api/market-analysis) merespons dalam format non-JSON (HTML/Teks). Hal ini biasanya terjadi jika aplikasi di-deploy sebagai Static SPA di Vercel tanpa fungsi backend Node.js (Express) yang aktif. Silakan jalankan backend Express terintegrasi kami di port 3000 agar AI berfungsi normal."
+        );
       }
 
-      const data: MarketAnalysisResponse = await response.json();
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Gagal menghubungi mesin analisis pasar.");
+      }
+
       setAnalysis(data);
     } catch (err: any) {
       setError(err.message || "Terdapat gangguan AI dalam memetakan segmen. Silakan coba kembali.");
