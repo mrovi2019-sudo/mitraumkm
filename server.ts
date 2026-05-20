@@ -23,7 +23,7 @@ const ai = new GoogleGenAI({
 });
 
 // Endpoint helper to verify API Key behaves correctly
-app.get("/api/health", (req, res) => {
+app.get(["/api/health", "/health"], (req, res) => {
   res.json({
     status: "ok",
     hasApiKey: !!process.env.GEMINI_API_KEY,
@@ -31,7 +31,7 @@ app.get("/api/health", (req, res) => {
 });
 
 // Endpoint 1: Parse financial notes into a tidy, structured list
-app.post("/api/financial-parse", async (req, res) => {
+app.post(["/api/financial-parse", "/financial-parse"], async (req, res) => {
   const { notes } = req.body;
 
   if (!notes || typeof notes !== "string" || !notes.trim()) {
@@ -94,7 +94,7 @@ ${notes}`;
 });
 
 // Endpoint 2: Market segment explorer and product target analysis
-app.post("/api/market-analysis", async (req, res) => {
+app.post(["/api/market-analysis", "/market-analysis"], async (req, res) => {
   const {
     productName,
     productCategory,
