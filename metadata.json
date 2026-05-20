@@ -1,0 +1,8 @@
+{
+  "name": "Asisten AI UMKM",
+  "description": "Asisten AI pintar untuk merapikan catatan keuangan UMKM dan menganalisis segmen pasar atau taktik pemasaran produk.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
