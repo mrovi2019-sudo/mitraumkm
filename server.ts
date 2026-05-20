@@ -1,7 +1,6 @@
 import express from "express";
 import path from "path";
 import dns from "dns";
-import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
 import "dotenv/config";
 
@@ -200,6 +199,7 @@ Berikan keluaran yang lengkap dengan segmentasi pelanggan rinci, analisis SWOT s
 const startServer = async () => {
   if (process.env.NODE_ENV !== "production") {
     console.log("Starting server in DEVELOPMENT mode with Vite Middleware...");
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
